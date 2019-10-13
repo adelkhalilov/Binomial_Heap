@@ -13,10 +13,10 @@ class binomial_heap
 	class tree_node
 	{
 	public:
-		Key value; // ключ (значение) вершины
-		tree_node* parent; // указатель родителя на вершины
-		tree_node* sibling; // указатель на правого брата вершины
-		tree_node* child; // указатель на левого ребенка вершины
+		Key value; 
+		tree_node* parent; 
+		tree_node* sibling; 
+		tree_node* child; 
 		std::shared_ptr<Pointer> pointer;
 
 		class tree_node(Key value)
@@ -29,11 +29,11 @@ class binomial_heap
 			this->value = value;
 		}
 
-		tree_node* tree_merge(tree_node* new_tree) //сливаем два дереве одинаковой степени в одно
+		tree_node* tree_merge(tree_node* new_tree) 
 		{
 			if (this->degree != new_tree->degree)
 			{
-				throw logic_error("У деревьев разная степень!");
+				throw logic_error("Г“ Г¤ГҐГ°ГҐГўГјГҐГў Г°Г Г§Г­Г Гї Г±ГІГҐГЇГҐГ­Гј!");
 			}
 			tree_node* new_root = this;
 			tree_node* new_sibling = new_tree;
@@ -41,7 +41,7 @@ class binomial_heap
 			{
 				std::swap(new_root, new_sibling);
 			}
-			new_root->add_child(new_sibling); //подвешиваем за дерево с большим значением value
+			new_root->add_child(new_sibling); //ГЇГ®Г¤ГўГҐГёГЁГўГ ГҐГ¬ Г§Г  Г¤ГҐГ°ГҐГўГ® Г± ГЎГ®Г«ГјГёГЁГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐГ¬ value
 			return new_root;
 		}
 
@@ -57,7 +57,7 @@ class binomial_heap
 
 	private:
 		unsigned long degree;
-		void add_child(tree_node* new_sibling) // подвешиваем одно дерево к другому
+		void add_child(tree_node* new_sibling) // ГЇГ®Г¤ГўГҐГёГЁГўГ ГҐГ¬ Г®Г¤Г­Г® Г¤ГҐГ°ГҐГўГ® ГЄ Г¤Г°ГіГЈГ®Г¬Гі
 		{
 			new_sibling->parent = this;
 			new_sibling->sibling = this->child;
@@ -115,7 +115,7 @@ public:
 	{
 		if (is_empty())
 		{
-			throw runtime_error("Куча пустая!");
+			throw runtime_error("ГЉГіГ·Г  ГЇГіГ±ГІГ Гї!");
 		}
 		return min_root->value;
 	}
@@ -124,7 +124,7 @@ public:
 	{
 		if (is_empty())
 		{
-			throw std::runtime_error("Куча пустая!");
+			throw std::runtime_error("ГЉГіГ·Г  ГЇГіГ±ГІГ Гї!");
 		}
 		auto erased_root = extract_min_root();
 
@@ -138,7 +138,7 @@ public:
 	{
 		if (!pointer->is_mark())
 		{
-			throw std::runtime_error("Вершина уже удалена!");
+			throw std::runtime_error("Г‚ГҐГ°ГёГЁГ­Г  ГіГ¦ГҐ ГіГ¤Г Г«ГҐГ­Г !");
 		}
 
 		if (new_value <= pointer->value())
@@ -149,7 +149,7 @@ public:
 		else
 		{
 			extract_value(pointer->node);
-			//узел находится вне кучи, поэтому мы можем изменить его значение
+			//ГіГ§ГҐГ« Г­Г ГµГ®Г¤ГЁГІГ±Гї ГўГ­ГҐ ГЄГіГ·ГЁ, ГЇГ®ГЅГІГ®Г¬Гі Г¬Г» Г¬Г®Г¦ГҐГ¬ ГЁГ§Г¬ГҐГ­ГЁГІГј ГҐГЈГ® Г§Г­Г Г·ГҐГ­ГЁГҐ
 			pointer->node->value = new_value;
 			add_roots(pointer->node);
 			++heap_size;
@@ -160,7 +160,7 @@ public:
 	{
 		if (!pointer->is_mark())
 		{
-			throw runtime_error("Вершина уже удалена!");
+			throw runtime_error("Г‚ГҐГ°ГёГЁГ­Г  ГіГ¦ГҐ ГіГ¤Г Г«ГҐГ­Г !");
 		}
 		auto node = pointer->node;
 		extract_value(node);
@@ -257,7 +257,7 @@ private:
 	{
 		if (prev_root != nullptr && prev_root->sibling != current_root)
 		{
-			throw runtime_error("Корни образуют не образуют список!");
+			throw runtime_error("ГЉГ®Г°Г­ГЁ Г®ГЎГ°Г Г§ГіГѕГІ Г­ГҐ Г®ГЎГ°Г Г§ГіГѕГІ Г±ГЇГЁГ±Г®ГЄ!");
 		}
 
 		if (prev_root != nullptr)
@@ -365,7 +365,7 @@ private:
 
 	void extract_value(tree_node* node)
 	{
-		//изменяем значение в нужной вершине на минус бесконечность, просеиваем и извлекаем ее
+		//ГЁГ§Г¬ГҐГ­ГїГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ Гў Г­ГіГ¦Г­Г®Г© ГўГҐГ°ГёГЁГ­ГҐ Г­Г  Г¬ГЁГ­ГіГ± ГЎГҐГ±ГЄГ®Г­ГҐГ·Г­Г®Г±ГІГј, ГЇГ°Г®Г±ГҐГЁГўГ ГҐГ¬ ГЁ ГЁГ§ГўГ«ГҐГЄГ ГҐГ¬ ГҐГҐ
 		sift_up(node, true);
 		extract_min_root();
 	}
